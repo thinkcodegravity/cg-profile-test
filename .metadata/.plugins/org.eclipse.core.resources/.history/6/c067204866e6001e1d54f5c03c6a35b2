@@ -1,0 +1,38 @@
+import java.io.IOException;
+import javax.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class LoginServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        // Retrieve parameters from the form
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        
+        // Dummy authentication (replace this with your actual authentication logic)
+        boolean isAuthenticated = authenticate(email, password);
+        
+        if (isAuthenticated) {
+            // Set success message
+            request.setAttribute("message", "Login successful!");
+            // Forward to the success page
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+            // Set error message
+            request.setAttribute("error", "Invalid email or password. Please try again.");
+            // Forward back to login page with error message
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+    }
+    
+    // Dummy authentication method (replace this with your actual authentication logic)
+    private boolean authenticate(String email, String password) {
+        // Your authentication logic here
+        // Return true if authentication succeeds, false otherwise
+        // For simplicity, let's say authentication succeeds if email is not empty and password is "password"
+        return email != null && email.equals("hembk44@gmail.com") && password != null && password.equals("Hem123");
+    }
+}

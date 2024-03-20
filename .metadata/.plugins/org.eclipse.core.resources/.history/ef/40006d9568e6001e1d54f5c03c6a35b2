@@ -1,0 +1,48 @@
+import java.io.IOException;
+import javax.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
+
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        // Retrieve parameters from the form
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        
+        // Dummy authentication (replace this with your actual authentication logic)
+        boolean isAuthenticated = authenticate(email, password);
+        
+     // Prepare JSON response object
+        JSONObject jsonResponse = new JSONObject();
+        
+        if (isAuthenticated) {
+            // Set success message in JSON response
+            jsonResponse.put("success", true);
+            jsonResponse.put("message", "Login successful!");
+        } else {
+            // Set error message in JSON response
+            jsonResponse.put("success", false);
+            jsonResponse.put("error", "Invalid email or password. Please try again.");
+        }
+        
+        // Set content type and write JSON response
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonResponse.toString());
+    }
+    
+    // Dummy authentication method (replace this with your actual authentication logic)
+    private boolean authenticate(String email, String password) {
+        // Your authentication logic here
+        // Return true if authentication succeeds, false otherwise
+        // For simplicity, let's say authentication succeeds if email is not empty and password is "password"
+        return email != null && email.equals("hembk44@gmail.com") && password != null && password.equals("Hem123");
+    }
+}
