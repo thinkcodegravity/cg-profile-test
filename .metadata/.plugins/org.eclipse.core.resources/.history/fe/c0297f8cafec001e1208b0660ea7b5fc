@@ -1,0 +1,50 @@
+package com.example.demo;
+
+import java.io.IOException;
+
+
+import org.json.JSONObject;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+
+@WebServlet("/register")
+public class LoginServlet extends HttpServlet {
+    public void doPost(HttpServlet request, HttpServlet response) 
+            throws ServletException, IOException {
+    	System.out.println("Inside doPost");
+        // Retrieve parameters from the form
+        String email = request.getInitParameter("email");
+        String password = request.getInitParameter("password");
+        
+        // Dummy authentication (replace this with your actual authentication logic)
+        boolean isAuthenticated = authenticate(email, password);
+        
+     // Prepare JSON response object
+        JSONObject jsonResponse = new JSONObject();
+        
+        if (isAuthenticated) {
+            // Set success message in JSON response
+            jsonResponse.put("success", true);
+            jsonResponse.put("message", "Login successful!");
+        } else {
+            // Set error message in JSON response
+            jsonResponse.put("success", false);
+            jsonResponse.put("error", "Invalid email or password. Please try again.");
+        }
+        
+        // Set content type and write JSON response
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonResponse.toString());
+    }
+    
+    // Dummy authentication method (replace this with your actual authentication logic)
+    private boolean authenticate(String email, String password) {
+        // Your authentication logic here
+        // Return true if authentication succeeds, false otherwise
+        // For simplicity, let's say authentication succeeds if email is not empty and password is "password"
+        return email != null && email.equals("hembk44@gmail.com") && password != null && password.equals("Hem123");
+    }
+}

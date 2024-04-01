@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,17 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
+    	System.out.println("Inside doPost");
         // Retrieve parameters from the form
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         
         // Dummy authentication (replace this with your actual authentication logic)
         boolean isAuthenticated = authenticate(email, password);
-        
+        /**
      // Prepare JSON response object
         JSONObject jsonResponse = new JSONObject();
         
@@ -37,6 +41,7 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(jsonResponse.toString());
+        **/
     }
     
     // Dummy authentication method (replace this with your actual authentication logic)
